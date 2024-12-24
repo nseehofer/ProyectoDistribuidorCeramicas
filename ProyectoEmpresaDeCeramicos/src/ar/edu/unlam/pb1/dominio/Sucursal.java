@@ -5,25 +5,20 @@ import java.util.Arrays;
 import ar.edu.unlam.pb1.dominio.enums.TipoDeCeramica;
 
 public class Sucursal {
-	// TODO: Completar el constructor, getter, setters y método necesarios para
-	// asegurar el correcto funcionamiento
 
 	public static final int CANTIDAD_PEDIDOS = 10000;
 
 	private String nombre;
 	private CajaDeCeramica[] ceramicasDisponibles;
 	private Pedido[] pedidos;
-	
+
 	public Sucursal(String nombre) {
 		this.nombre = nombre;
-		this.agregarCeramicasDisponibles(); // Esta linea debe ejecutarse en el constructor
-		this.cargarPedidos(); // Esta linea debe ejecutarse en el constructor
+		this.agregarCeramicasDisponibles();
+		this.cargarPedidos();
 	}
 
 	public CajaDeCeramica buscarCajaDeCeramicaPorCodigo(String codigoCajaDeCeramica) {
-		// TODO: Buscar y devolver la caja de ceramica que cumpla con el codigo
-		// suministrado. Es necesario no discernir entre mayusculas y minusculas (el
-		// usuario puede ingresar el codigo tanto con mayusculas como con minusculas).
 
 		CajaDeCeramica cajaEncontrada = null;
 		boolean encontrada = false;
@@ -45,12 +40,6 @@ public class Sucursal {
 	}
 
 	public int calcularCantidadDeCajasDeCeramicaPorAreaDeCobertura(double areaACubrir, CajaDeCeramica cajaDeCeramica) {
-		// TODO Calcular y devolver la cantidad de cajas necesarias para cubrir el area
-		// especificada. Cada caja conoce el area de cobertura segun el tamanio de las
-		// ceramicas. Necesitamos entonces dividir el area a cubrir, con el area de
-		// cobertura de una caja, para conocer cuantas cajas se necesitan. En caso de
-		// que la division contenga decimales, se debera redondear al siguiente numero
-		// entero.
 
 		double areaDeCoberturaDeLaCaja = cajaDeCeramica.obtenerAreaDeCoberturaDeUnaCaja();
 
@@ -60,19 +49,11 @@ public class Sucursal {
 	}
 
 	public boolean agregarCajasDeCeramicaAPedido(int numeroPedido, CajaDeCeramica cajaDeCeramica, int cantidadCajas) {
-		// TODO: Agregar al pedido la cantidad de cajas de ceramica especificada como
-		// parametro.
-		// Cuando se agregan cajas de ceramica a un pedido, el mismo se debe marcar como
-		// utilizado.
-		// Devuelve verdadero en caso de poder agregar todas las
-		// cajas. Caso contrario, devuelve falso.
 
 		boolean cajasAgregadas = false;
 		int indice = 0;
 		int contadorDeCajasAgregadas = 0;
 		CajaDeCeramica[] cajasParaAgregarAlArray = new CajaDeCeramica[cantidadCajas];
-
-		// NO ME AGREGA LA CANTIDAD DE CAJAS
 
 		while (indice < this.pedidos.length && !cajasAgregadas) {
 			if (this.pedidos[indice] != null && this.pedidos[indice].getNumero() == numeroPedido) {
@@ -81,14 +62,8 @@ public class Sucursal {
 					cajasParaAgregarAlArray[posicion] = cajaDeCeramica;
 				}
 
-				/*
-				 * for (int posicion = 0 ; posicion < cantidadCajas; posicion++) {
-				 * 
-				 * this.pedidos[indice].getCeramicas()[posicion] ; }
-				 */
 				this.pedidos[numeroPedido - 1].setCeramicas(cajasParaAgregarAlArray);
 				this.pedidos[numeroPedido - 1].setUtilizado(true);
-				// this.pedidos[numeroPedido - 1].getCeramicas();
 				cajasAgregadas = true;
 			}
 
@@ -99,7 +74,6 @@ public class Sucursal {
 	}
 
 	public double obtenerMontoTotalDeLosPedidosUtilizados() {
-		// TODO: Calcular y devolver el monto total de los pedidos utilizados.
 
 		boolean pedidosNoUtilizados = false;
 		int indice = 0;
@@ -108,10 +82,6 @@ public class Sucursal {
 		while (indice < this.pedidos.length && !pedidosNoUtilizados) {
 			if (this.pedidos[indice] != null && this.pedidos[indice].isUtilizado() == true) {
 
-				// LA VERDAD NO SE SI ESTA BIEN... SOLO HICE LO POSIBLE PARA OBTENER EL
-				// "getPrecio" de manera tal
-				// que no tenga que armar mil quinientos metodos para ello, sino ver alguna
-				// forma fluida en el codigo.
 				for (int indiceBis = 0; indiceBis < this.pedidos[indice].getCeramicas().length; indiceBis++) {
 					montoTotal += this.pedidos[indice].getCeramicas()[indiceBis].getPrecio();
 				}
@@ -127,17 +97,9 @@ public class Sucursal {
 	public double obtenerPromedioDePrecioDeCajasDeCeramicaDeUnTipoDeCeramicaEnUnPedido(int numeroPedido,
 			TipoDeCeramica tipoDeCeramica) {
 
-		// TODO: Dado el numero de pedido y el tipo de ceramica,
-		// obtener el promedio de precio de cajas de ceramica incluidas en dicho pedido
-		// que sean del tipo de
-		// ceramica especificado.
-		// NO ENTIENDO Si un pedido no fue utilizado, devolver cero.
-
 		double promedio = 0, precioTotalDelTipoDeCeramica = 0;
 		boolean encontreElPedido = false;
 		int indice = 0, cantidadTotalDelTipoDeCeramica = 0;
-
-		// PRIMERO RECORRO LOS PEDIDOS HASTA ENCONTRAR EL QUE QUIERE
 
 		while (indice < this.pedidos.length && !encontreElPedido) {
 
@@ -162,10 +124,7 @@ public class Sucursal {
 	}
 
 	public CajaDeCeramica[] obtenerCeramicasDisponiblesOrdenadasPorTipoDeCeramicaAscendente() {
-		// TODO: Ordenar el array de cajas existente por tipo de ceramica ascendente y
-		// devolverlo.
 
-		// YA SE QUE LA NECESITO PORQUE DEBO ORDENAR UN ARRAY
 		CajaDeCeramica aux = null;
 
 		for (int indice = 0; indice < this.ceramicasDisponibles.length; indice++) {
@@ -184,10 +143,8 @@ public class Sucursal {
 		return this.ceramicasDisponibles;
 	}
 
-	// ______METODOS HECHOS__________
-
 	private void cargarPedidos() {
-		// Metodo necesario para usar el soft
+
 		if (this.pedidos == null) {
 			this.pedidos = new Pedido[CANTIDAD_PEDIDOS];
 		}
@@ -197,10 +154,8 @@ public class Sucursal {
 		}
 	}
 
-	// ________________
-
 	private void agregarCeramicasDisponibles() {
-		// Metodo necesario para usar el soft
+
 		if (this.ceramicasDisponibles == null) {
 			this.ceramicasDisponibles = new CajaDeCeramica[5];
 		}

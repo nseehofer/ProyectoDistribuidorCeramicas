@@ -3,10 +3,6 @@ package ar.edu.unlam.pb1.dominio;
 import ar.edu.unlam.pb1.dominio.enums.TipoDeCeramica;
 
 public class CajaDeCeramica {
-	// TODO: Completar el constructor, getters, setters y metodos necesarios para
-	// garantizar el correcto funcionamiento. El
-	// precio de la caja se calcula en base al precio de la ceramica por la cantidad
-	// que trae la caja.
 
 	private double alturaDeCeramica;
 	private double largoDeCeramica;
@@ -32,8 +28,6 @@ public class CajaDeCeramica {
 	public double obtenerAreaDeCoberturaDeUnaCaja() {
 		return this.largoDeCeramica * this.alturaDeCeramica * this.cantidadEnCaja;
 	}
-
-	// ___________________________
 	
 	
 	public String toString() {
